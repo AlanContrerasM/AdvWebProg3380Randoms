@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Changing Color of Webpage</title>
+    </head>
+
+    <body id="setbgcolor" style="background-color: #AFD275">
+
+        <h1>Hi!!My color is changing</h1>
+        <h2>Showing the use of Math.random and setInterval</h2>
+
+        <script>
+            let bodyDom = document.getElementById("setbgcolor");
+            let i = 0;
+            let colorArr = ["#a5a5a5", "#f2f2f2", "#c43315", "#42f3c4"];
+
+            let changeColor = setInterval(function () {
+            
+            // get random number to get from the 
+            let random = Math.floor(Math.random()* colorArr.length);
+            
+            bodyDom.style.backgroundColor = colorArr[random];
+            i++;
+            //end interval condition
+            if (i >= 20) {
+                clearInterval(changeColor);
+            }
+            }, 250);
+                        
+        </script>
+
+    </body>
+
+</html>
