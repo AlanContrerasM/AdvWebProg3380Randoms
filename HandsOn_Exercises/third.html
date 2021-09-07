@@ -28,6 +28,14 @@
 						"Booster doses of Moderna's Covid-19 vaccine may be delayed from rolling out the week of September 20 as planned, Dr. Anthony Fauci said Sunday.",
 						"ATLANTA (AP) - The Washington Nationals would like a restart. The Atlanta Braves just want to keep the winning pace they have set during the first week of the season."]
 		
+		let selectCollection = document.getElementsByName("headline")[0];
+		let news = document.getElementById("news");
+
+		console.log(selectCollection.options.selectedIndex);
+		selectCollection.addEventListener("change", (e)=>{
+			let selected = selectCollection.options.selectedIndex;
+			news.textContent = newsItems[selected];
+		})
 
 
 	</script>

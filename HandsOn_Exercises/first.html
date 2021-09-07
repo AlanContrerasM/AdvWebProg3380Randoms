@@ -16,9 +16,15 @@
 	
 
 	<script>
+		let temp = document.getElementById("temp");
+		let demo = document.getElementById("demo");
 
 		function fahrenheitToCelsius() {
-			
+
+			//(32°F − 32) × 5/9
+			let celsius = (Number(temp.value)-32) *(5/9);
+
+			demo.textContent = celsius.toFixed(2) + " Degrees celsius";
 		}
 	</script>
 

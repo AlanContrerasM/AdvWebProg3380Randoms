@@ -6,10 +6,40 @@
 </head>
 <body >
 	<h1>Tom and Jerry</h1>
-	<img id="cartoon" src="Images/TJ.jpg" height="60" width="97" alt="Image of a cartoon character." />
+	<img id="cartoon" src="Images/TJ0.jpg" height="60" width="97" alt="Image of a cartoon character." />
 
 	<script>
-		
+		let imgArray = [
+			"Images/TJ0.jpg",
+			"Images/TJ1.jpg",
+			"Images/TJ2.jpg",
+			"Images/TJ3.jpg",
+			"Images/TJ4.jpg",
+			"Images/TJ5.jpg",
+			"Images/TJ6.jpg"
+		]
+
+		let cartoonDom = document.getElementById("cartoon");
+		let i = 0;
+		let j= 0;
+
+
+		let changeImg = setInterval(function () {
+			if(j >= imgArray.length){
+				j = 0;
+			}
+			
+			cartoonDom.src = imgArray[j];
+			console.log(imgArray[j]);
+			
+			j++;
+			i++;
+			
+			//end interval condition
+			if (i >= 30) {
+				clearInterval(changeImg);
+			}
+		}, 500);
 		
 		
 	</script>

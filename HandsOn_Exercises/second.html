@@ -29,8 +29,21 @@
 
 
 	<script>
+
+		let placeDom = document.getElementById("place");
+
+		let radioButtons = document.querySelectorAll("[name=touristSpot]");
+		//let spots = document.getElementsByName("touristSpot");
+
 		function chooseSpot() {
+
+			radioButtons.forEach(radio =>{
+				if(radio.checked){
+					place.textContent = radio.value;
+				}
+			})
 			
+
 		}
 
 	</script>

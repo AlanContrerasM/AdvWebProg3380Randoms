@@ -23,6 +23,15 @@
 			"Movies"
 		];
 
+		let theList = document.getElementById("theList");
+
+		longList.forEach(item=>{
+			theList.innerHTML += item + "<br>";
+		})
+
+		for(let item of longList){
+			theList.innerHTML += item + "<br>";
+		}
 
 	</script>
 
