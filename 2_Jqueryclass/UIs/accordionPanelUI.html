@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset = "utf-8">
+        <link rel = "stylesheet" href = "jquery-ui.css"></link>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+
+    <div id="accordion">
+
+        <h2>Badminton</h2>
+        <p>Badminton is a racquet sport played using racquets to hit a shuttlecock across a net. Although it may be
+            played with larger teams, the most common forms of the game are "singles" (with one player per side) and
+            "doubles" (with two players per side). Badminton is often played as a casual outdoor activity in a yard or
+            on a beach; formal games are played on a rectangular indoor court. Points are scored by striking the
+            shuttlecock with the racquet and landing it within the opposing side's half of the court.</p>
+
+
+        <h2>Soccer</h2>
+        <p>Association football, more commonly known as football or soccer, is a team sport played with a spherical ball
+            between two teams of eleven players. It is played by 250 million players in over 200 countries and
+            dependencies, making it the world's most popular sport. The game is played on a rectangular field called a
+            pitch with a goal at each end. The object of the game is to score by moving the ball beyond the goal line
+            into the opposing goal.</p>
+
+
+        <h2>Cricket</h2>
+        <p>The International Cricket Council (ICC) is the global governing body of cricket. It was founded as the
+            Imperial Cricket Conference in 1909 by representatives from Australia, England and South Africa. It was
+            renamed as the International Cricket Conference in 1965, and took up its current name in 1989. It organises
+            world championship events such as Cricket World Cup, Women's Cricket World Cup, ICC T20 World Cup, ICC
+            Women's T20 World Cup, ICC Champions Trophy and Under-19 Cricket World Cup.</p>
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#accordion").accordion({
+                //Initialize the accordion with the event. Default is click
+                //event: "mouseover",
+
+                //To allow for all sections to be be collapsible
+                collapsible: true
+
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

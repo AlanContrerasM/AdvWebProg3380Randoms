@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	
+	<title>Assignment1</title>
+	<style>
+		#slides img {
+			display: none;
+		}
+	</style>
+	<!---- STUDENT INFORMATION
+	CSIS 3380 ASSIGNMENT 1
+	Student Name:
+	Student ID:
+	-->
+</head>
+
+<body id="setbgcolor" style="background-color: #75b5d2">
+
+	<!-- QUESTION 1-->
+	<!--****************************************************************************** -->
+
+	<header id="main-header" class="bg-primary text-information p-4 mb-3">
+		<div class="container">
+		  <div class="row">
+			<div class="col-md-6">
+			  <h1 id="header-title">To-do Task List</h1>
+			</div>
+	
+			<div class="col-md-6 align-self-center">
+			  <input type="text" class="form-control" id="filter" placeholder="Search Tasks...">
+			</div>
+		  </div>
+		</div>
+	  </header>
+	
+	  <div class="container">
+		<div id="main" class="card card-body">
+		  <h2 class="title">Add Tasks</h2>
+		  <form id="addForm" class="form-inline mb-3">
+			<input type="text" class="form-control mr-2" id="task">
+			<input type="submit" class="btn btn-dark" value="Submit">
+		  </form>
+	
+		  <h2 class="title">Tasks</h2>
+		  <ul id="tasks" class="list-group">
+			<li class="list-group-item">Task 1 <button class="btn btn-danger btn-sm float-right delete">X</button></li>
+			<li class="list-group-item">Task 2 <button class="btn btn-danger btn-sm float-right delete">X</button></li>
+			<li class="list-group-item">Task 3 <button class="btn btn-danger btn-sm float-right delete">X</button></li>
+			<li class="list-group-item">Task 4 <button class="btn btn-danger btn-sm float-right delete">X</button></li>
+		  </ul>
+		</div>
+	  </div>
+
+	  <br>
+	  <br>
+	  <br>
+	<div class="container p-2 mb-3">
+
+		<div class="row">
+			<!-- QUESTION 2-->
+			<!--****************************************************************************** -->
+			<div class="col-md-6 ">
+				<h2 id="header-title">Anny’s Seashore Supplies</h2>
+
+				Name of Item
+				<!--For example: Swimsuit, Beach Chair, Bodyboard, Fins and Snorkel, Mesh/Dive Bag, Saltwater Kayak, Slackline, Rashguard, Umbrella -->
+				<input type="text" name="item" id="item" size="30" /><br><br>
+				<input type="button" id="addbtn" value="Add Item" />
+				<input type="button" id="removebtn" value="Delete Item" /><br>
+
+				<p><strong>You Selected:</strong></p>
+				<select name="group" id="selectedItems" size="5" style="width: 150px">
+					<!-- Display the Selected Items Here -->
+				</select>
+
+				<p> Enter Number of Minutes for the Rental: <input type="number" name="minutes" id="minutes" min="1" />
+				</p>
+				<p> Your Rental Amount is $<input type="text" name="amount" id="amount" size="6" value=""
+						readonly="readonly" class="total" /></p>
+
+			</div>
+
+			<!-- QUESTION 3-->
+			<!--****************************************************************************** -->
+			<div class="col-md-6 ">
+				<h2>Inspirational Quotes</h2>
+
+				<label id="displayQuotes">
+					I have not failed. I've just found 10,000 ways that won't work. - Thomas A. Edison <br />
+					Life isn't about finding yourself. Life is about creating yourself. - George Bernard Shaw <br />
+					Do what you can, with what you have, where you are. - Theodore Roosevelt <br />
+					There is no greater agony than bearing an untold story inside you. - Maya Angelou <br />
+				</label>
+			</div>
+		</div>
+
+		<div class="row justify-content-center align-items-center">
+			<!-- QUESTION 4-->
+			<!--****************************************************************************** -->
+			<div class="col-md-6">
+				<h2>Animation</h2>
+				<img id="animateImage" src="Images/img1.png" alt="Animated Images." />
+			</div>
+			<!-- QUESTION 5-->
+			<!--****************************************************************************** -->
+			<div class="col-md-6">
+				<h2>Fishing Slide Show</h2>
+				<h4 id="caption">Casting on the Upper Kings</h4>
+				<img id="slide" src="images/casting1.jpg" alt="" height="200px">
+				<div id="slides">
+					<img src="images/casting1.jpg" alt="Casting on the Upper Kings" height="200px">
+					<img src="images/casting2.jpg" alt="Casting on the Lower Kings" height="200px">
+					<img src="images/catchrelease.jpg" alt="Catch and Release on the Big Horn" height="200px">
+					<img src="images/fish.jpg" alt="Catching on the South Fork" height="200px">
+					<img src="images/lures.jpg" alt="The Lures for Catching" height="200px">
+				</div>
+
+			</div>
+		</div>
+
+		<!-- QUESTION 6-->
+		<!--****************************************************************************** -->
+		<div id="ballElement" style="position:absolute; left: 0px; top: 0px;">
+			<img id="ballImage" src="Images/bowlingball.png" alt="Image of a ball" height="48" width="48" />
+		</div>
+
+		<!-- QUESTION 7-->
+		<!--****************************************************************************** -->
+		<div id="movingObject" style="position: absolute; left: -10px; top: 450px;">
+			<img id="aero" src="Images/helicopter.gif" height=200px width=200px>
+		</div>
+
+	</div>
+
+	<script src="as1Solution.js"></script>
+
+</body>
+
+</html>

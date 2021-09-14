@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery UIs</title>
+        <meta charset = "utf-8">
+        <link rel = "stylesheet" href = "jquery-ui.css"></link>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <style>
+            #draggable { 
+                width: 150px; 
+                height: 150px; 
+                padding: 0.5em; 
+                border: 10px solid black
+                }
+        </style>
+    </head>
+    <body>
+        <div id="draggable">
+            <p>Drag me around</p>
+          </div>
+          <script>
+              $(function(){
+                  //Enable draggable functionality on any DOM element. 
+                  $('#draggable').draggable();
+              })
+          </script>
+    </body>
+</html>

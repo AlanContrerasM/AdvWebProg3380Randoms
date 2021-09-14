@@ -73,6 +73,7 @@ addForm.addEventListener("submit", (e) => {
     //clear input field
     document.getElementById("task").value = "";
     
+    
   });
 
 
