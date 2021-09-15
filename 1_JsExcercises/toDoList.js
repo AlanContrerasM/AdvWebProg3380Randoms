@@ -12,8 +12,14 @@ let tasksList = [];
 
 
 //create an Array from the current tasks, so we can manipulate it.
+let buttonIndex = 0;
 for(let li of tasks.children){
     tasksList.push(li.textContent.slice(0,li.textContent.length - 2));
+
+    //add extra attribute to delete button for easy remove operation
+    li.children[0].setAttribute('indexOnli', buttonIndex);
+    
+    buttonIndex++;
 }
 console.log(tasksList);
 
@@ -21,15 +27,16 @@ console.log(tasksList);
 //delete children from tasks list
 
 function removeTask(element){
-    console.log(element.parentNode.parentNode.children);
-    //let index = Array.from(element.parentNode.parentNode.children).indexOf(element.parentNode);
-    //console.log(index);
+    //console.log(element.parentNode.parentNode.children);
+    //let index1 = Array.from(element.parentNode.parentNode.children).indexOf(element.parentNode);
+    //console.log(index1);
     tasks.removeChild(element.parentNode);
 
-    var index = 0;
-    while( element.parentNode.previousSibling != null ){index++;}
-  
-    tasksList.splice(index ,1);
+    //var index = 0;
+    //while( element.parentNode.previousSibling != null ){index++;}
+    
+    console.log(element.getAttribute('indexOnli'));
+    tasksList.splice(element.getAttribute('indexOnli') ,1);
 }
 
 
@@ -60,6 +67,7 @@ addForm.addEventListener("submit", (e) => {
     button.classList.add("btn", "btn-danger", "btn-sm", "float-right", "delete");
     button.textContent = "X";
     button.addEventListener("click", ()=> removeTask(button));
+    button.setAttribute('indexOnli', tasksList.length);
 
     let li = document.createElement("li");
     li.classList.add("list-group-item");
@@ -82,21 +90,30 @@ addForm.addEventListener("submit", (e) => {
 //<input type="text" class="form-control" id="filter" placeholder="Search Tasks...">
 filter.addEventListener("input", e =>{
 
+    let indexOnli =[];
+
     //filter tasks array with search parameter
-    let foundTasks = tasksList.filter(task=>{
-        return task.includes(e.target.value);
+    let foundTasks = tasksList.filter((task, index)=>{
+
+        if(task.includes(e.target.value)){
+            indexOnli.push(index);
+            return true;
+        }
+        
     })
 
     //clear current tasks Dom list
     tasks.innerHTML = "";
 
     //create new DOM list with filtered arraylist
-    foundTasks.forEach(task=>{
+    foundTasks.forEach((task, i)=>{
         let button = document.createElement("button");
 
         button.classList.add("btn", "btn-danger", "btn-sm", "float-right", "delete");
         button.textContent = "X";
+        button.setAttribute('indexOnli', indexOnli[i]);
         button.addEventListener("click", ()=> removeTask(button));
+        console.log(indexOnli[i]);
     
         let li = document.createElement("li");
         li.classList.add("list-group-item");
