@@ -17,8 +17,8 @@ $(()=>{
     })
 
     $("#toggle").click(()=>{
-        //$("#fadetoggle1, #fadetoggle2").toggle(2000);
-        $("#fadetoggle1, #fadetoggle2").fadeToggle(2000);
+        $("#fadetoggle1, #fadetoggle2").toggle(2000);
+        //$("#fadetoggle1, #fadetoggle2").fadeToggle(2000);
     })
 
 

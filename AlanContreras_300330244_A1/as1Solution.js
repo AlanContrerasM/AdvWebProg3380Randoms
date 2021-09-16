@@ -1,4 +1,8 @@
-document.addEventListener("DOMContentLoaded", function(event) { 
+//document.addEventListener("DOMContentLoaded", function(event) { });
+//for equivalent of $(()=>{}); on jquery
+
+//document.ready basically
+$(()=>{
       
    /**
     * Solution 1 -- to-Do List
@@ -295,9 +299,55 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
    /**
       * Solution 5 --Slide Show
-      * 
+      * too much of a hassle to do it in JS, will do jquery
       */
 
+   //says to do it on slide div, but it was an img, modified the html so slide is the actual div. and img is inside.
+   //get image list
+   let list = $("#slides");
+   let caption = $("#caption");
+   let main_image = $("#slide")
+   let imageArray = [];
+   let captionArray = [];
+   let srcArray = [];
+
+   //looping
+   list.children().each((index, element)=>{
+      //console.log(element); this is html element
+      let title = $(element).attr("alt");
+      let imgSrc = $(element).attr("src");
+      captionArray.push(title);
+      srcArray.push(imgSrc);
+      imageArray.push($(element));
+   })
+
+   //experimental after saving data eliminate non needed so only one image is usable on slides
+   list.html('<img src="images/casting2.jpg" alt="" height="200px">')
+   list.hide();
+   list.children().first().show();
+
+
+   let slideIndex = 0;
+   let slideActive = true;
+   function SlideShow(){
+      $("#slide, #slides").toggle(1000);
+      caption.text(captionArray[slideIndex]);
+      
+      slideIndex == imageArray.length -1 ? slideIndex = 0 : slideIndex++;
+      caption.text(captionArray[slideIndex]);
+      if(slideActive){
+         list.children().first().attr("src", srcArray[slideIndex]);
+         slideActive = false;
+      }else{
+         main_image.children().first().attr("src", srcArray[slideIndex]);
+         slideActive = true;
+      }
+      
+      //console.log(slideIndex);
+   }
+
+   let mySlideAnimation = setInterval(SlideShow, 2000);
+   //clearInterval(myImageAnimation);
 
 
 
@@ -305,6 +355,29 @@ document.addEventListener("DOMContentLoaded", function(event) {
     * Solution 6 -- Bouncing Balls  ----- Optional
     * 
     */
+   function BouncingBall(){
+
+      $("#ballElement, #ballImage").animate({
+         left: $( window ).width() - 50,
+         top: "0px",
+     }, 300)
+
+     $("#ballElement, #ballImage").animate({
+         left: $( window ).width() - 50,
+         top: $( window ).height() - 50,
+      }, 300)
+
+      $("#ballElement, #ballImage").animate({
+         left: 0,
+      }, 300)
+      $("#ballElement, #ballImage").animate({
+         left: 0,
+         top: 0,
+      }, 300)
+   }
+
+   let bowlingAnimation = setInterval(BouncingBall, 50);
+
 
 
 
@@ -312,6 +385,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
     * Solution 7 -- Moving Helicopter ----- Optional
     * 
     */
+
+    function MovingObject(){
+      
+      $("#movingObject, #aero").animate({
+         left: '0px',
+         top: $( window ).height() - 200,
+     }, 1)
+      
+
+      $("#movingObject, #aero").animate({
+         left: $( window ).width() - 200,
+         top: "0px",
+     }, 700)
+
+     
+   }
+
+   let movingHelicopter = setInterval(MovingObject, 100);
+
 
  });
  
