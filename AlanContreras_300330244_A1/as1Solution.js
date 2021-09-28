@@ -21,6 +21,7 @@ $(()=>{
    //create an Array from the current tasks, so we can manipulate it.
    let buttonIndex = 0;
    for(let li of tasks.children){
+      //eliminate the x from the button and leading space, ex. Task 1 X, " X"
       tasksList.push(li.textContent.slice(0,li.textContent.length - 2));
 
       //add extra attribute to delete button for easy remove operation
