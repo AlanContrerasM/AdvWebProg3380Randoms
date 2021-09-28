@@ -85,3 +85,16 @@ for(let key in student){//recommended for objects, not for arrays
 courses.forEach((course,index)=>{
     console.log(`${index}: ${course}`);
 })
+
+
+//using default paramenter
+
+const multiply = (num1, num2) => `The product of ${num1} and ${num2} is ${num1*num2}`;
+
+
+//use of MAP
+const color = ["red", "green", "orange", "purple", "white"];
+
+//use of foreach
+const fruits = ["apple", "strawberry", "pineapple", "blueberry", "grapes"];
+//use of filter
