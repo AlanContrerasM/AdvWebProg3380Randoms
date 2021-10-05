@@ -15,8 +15,9 @@ class Titles extends React.Component {
     handleDelete = (titleId) =>{
         console.log("delete the id: ", titleId);
         const titlesNew = this.state.titles.filter((title)=>title.id!==titleId);
-        console.table(titlesNew);
+        // console.table(titlesNew);
         this.setState({titles: titlesNew})
+        
         // this.setState({titles: titles});
     }
 
@@ -27,7 +28,8 @@ class Titles extends React.Component {
     
     render(){
         return(<div>
-            {this.state.titles.map((title, index)=> <Title key={index} data={title} reportTitle={this.reportTitle} onDelete={this.handleDelete} />)}
+            {/* important to use key with any id inside the object in state */}
+            {this.state.titles.map((title, index)=> <Title key={title.id} data={title} reportTitle={this.reportTitle} onDelete={this.handleDelete} />)}
         </div>);
     }
     // render() { 
