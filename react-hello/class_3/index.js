@@ -20,11 +20,10 @@ import Titles from './components/titles';
 ReactDOM.render(
   <React.StrictMode>
     {/*  <App /> */ }
-    {/* <Welcome name="Alan" />
-    <Greeting name="Contreras, Alan"/> */}
+    <Welcome name="Alan" />
+    <Greeting name="Contreras, Alan"/>
     {/* <Title /> */}
-    {/* <Titles /> */}
-    <App/>
+    <Titles />
 
   </React.StrictMode>,
   document.getElementById('root')
