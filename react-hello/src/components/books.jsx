@@ -14,7 +14,7 @@ const Books = () => {
         setBooks(newbooks);
     }
     return ( <>
-    <table className="table table-stripped">
+    <table className="table table-striped">
         <thead>
             <tr>
                 <th>Title</th>
