@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 //sfc is the shortcut for react snippets
 const NavBar = (props) => {
 
-    // const length = props.titles.filter(title=> title.value > 0).length;
+    const length = props.titles.filter(title=> title.value > 0).length;
     return ( 
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
@@ -27,9 +27,9 @@ const NavBar = (props) => {
                 </ul>
 
                 
-                {/* <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary">
                     Titles <span class="badge bg-secondary">{length}</span>
-                </button> */}
+                </button>
                 
                 <form className="d-flex">
                 <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
