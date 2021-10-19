@@ -26,7 +26,7 @@ const TaskService = (() => {
             if(task.title.includes(filter)){
                 return true;
             }
-            
+            return false;
         })
     }
     return {
