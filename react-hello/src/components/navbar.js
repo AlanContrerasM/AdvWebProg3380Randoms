@@ -3,6 +3,13 @@ import React, { Component } from 'react';
 
 //sfc is the shortcut for react snippets
 const NavBar = (props) => {
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        //in this case no validation required. just use required on the form
+
+        //send to our app, so they can update the state.
+        props.onSearch(document.getElementById('search').value);
+    }
 
     // const length = props.titles.filter(title=> title.value > 0).length;
     return ( 
@@ -28,11 +35,11 @@ const NavBar = (props) => {
 
                 
                 <button type="button" className="btn btn-primary m-2">
-                    Tasks <span className="badge bg-secondary">{5}</span>
+                    Tasks <span className="badge bg-secondary">{props.length}</span>
                 </button>
                 
-                <form className="d-flex">
-                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                <form className="d-flex" onSubmit={handleSubmit}>
+                <input className="form-control me-2" type="search" placeholder="Search" id="search" aria-label="Search"/>
                 <button className="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
