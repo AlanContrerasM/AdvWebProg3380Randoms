@@ -4,11 +4,13 @@ const TaskService = (() => {
             id: 0,
             title: "Life Plan",
             comments: "Get Rich",
+            editable: false, 
         },
         {
             id: 1,
             title: "Life Plan",
             comments: "Get Rich",
+            editable: false, 
         },
     ];
     
@@ -29,6 +31,8 @@ const TaskService = (() => {
             return false;
         })
     }
+
+    
     return {
       getTasks,
       setTasks,

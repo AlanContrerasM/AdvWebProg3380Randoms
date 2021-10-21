@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 function Tasks(props) {
+    
+    
     return (  
         <div className="table-responsive text-center">
             <h2>My Current Tasks</h2>
@@ -20,7 +22,17 @@ function Tasks(props) {
                     <tr key={task.id}>
                         <td>{task.id}</td>
                         <td>{task.title}</td>
-                        <td>{task.comments}</td>
+                        {/* doing some conditional to maybe edit it. */}
+                        { task.editable ? 
+                                        <td><input type='text' 
+                                            value={task.comments} 
+                                            onChange={(e)=>props.onEdit(task.id, e.target.value, false)}
+                                            autoFocus={true}
+                                            onBlur={(e) => props.onEdit(task.id, e.target.value, true)}
+                                        /></td>
+                                        : <td onClick={()=>props.onEdit(task.id)}>{task.comments}</td> 
+                         }
+                        
                         <td><button onClick={()=>props.onDelete(task.id)} className="btn btn-outline-success">Done</button></td>
                     </tr>
                     );
