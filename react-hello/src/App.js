@@ -1,73 +1,46 @@
+import logo from './logo.svg';
+import './App.css';
 import NavBar from './components/navbar';
-import Tasks from './components/tasks';
-import { TaskService } from './services/tasksService';
-import React, { useState } from 'react';
-import Form from './components/formTask';
+import {Route, Switch, Redirect} from 'react-router-dom';
+import Home from './components/home';
+import About from './components/about';
+import Contact from './components/contact';
+import Products from './components/products';
+import Events from './components/events';
+import Dashboard from './components/admin/dashboard';
+import EventDetails from './components/eventDetails';
+import NotFound from './components/notFound';
 
 
 function App() {
-  const [tasks, setTasks] = useState(TaskService.getTasks());
-  const [lastId, setLastId] = useState(TaskService.getTasks().length);
-
-
-  const handleDelete =(id)=>{
-    const newTasks= tasks.filter((task)=>task.id!==id);
-    setTasks(newTasks);
-    TaskService.setTasks(newTasks);
-  }
-  const handleAdd = (toBeAdded) =>{
-
-    //format is id, title, comments
-    const id = lastId + 1;
-    setLastId(id);
-    toBeAdded ={id , ...toBeAdded, editable:false};
-    const newTasks = [...tasks, toBeAdded];
-    console.log(toBeAdded);
-    //update state and our service.
-    setTasks(newTasks);
-    TaskService.setTasks(newTasks);
-  }
-
-  const handleSearch =(search)=>{
-    setTasks(TaskService.filterTasks(search));
-  }
-
-  // if 
-  const handleEdits = (key, newContent = undefined, finished = false)=>{
-    
-    if (newContent === undefined) {
-      //look for task, and make it editable
-       setTasks(tasks.map((task)=>{
-            if(task.id == key){
-              task.editable = true;
-            }
-            return task;
-          })
-       );
-    }else{
-      //task got edited
-      //change editable, and comment
-      setTasks(tasks.map((task)=>{
-          if(task.id == key){
-            if(finished){ task.editable = false;}
-            task.comments = newContent;
-          }
-          return task;
-        })
-      );
-    }
-
-    TaskService.setTasks(tasks);
-  }
-
-
-
   return (
     <div className="App">
-      <NavBar length={tasks.length} onSearch={handleSearch}/>
-      <Form onAdd={handleAdd}/>
-      <Tasks tasks={tasks} onDelete={handleDelete} onEdit={handleEdits}/>
-      
+      <NavBar/>
+      <div className="content">
+        <Switch> 
+        <Route path="/eventdetails/:id" component={EventDetails}/>
+        {/* to pass optional multiple params
+          access them inside with props.match.params.name props.match.params.course
+        */}
+        <Route path="/about/:name?/:course?" component={About}/>
+        <Route path="/contact">
+          <Contact name="Contact prop" />
+        </Route>
+        {/* if we want to send props too, which include, history, location, match, etc. */}
+        <Route path="/events" render={(props)=>{
+            return(<Events name="EventName" {...props}/>)
+          }}/>
+        <Route path="/products" component={Products}/>
+        <Route path="/admin" component={Dashboard}/>
+        {/* .*/}
+        <Route path="/" exact component={Home} />
+        <Route path="/notfound" exact component={NotFound} />
+        <Redirect from="/contactus" to="/contact"/>
+        <Redirect to="not-found"/>
+
+        </Switch>
+
+      </div>
     </div>
   );
 }
