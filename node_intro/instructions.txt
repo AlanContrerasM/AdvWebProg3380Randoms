@@ -1,0 +1,27 @@
+//node -v to check if note is installed
+
+//to write node commands, just write node on the terminal
+node
+console.log("Hello World");
+2+2
+.exit //to escape
+
+//create a folder like node_intro, cd into the folder.
+//create an index.js, write whatever like a console.log(),
+//you run it by being on the folder and write node index.js
+node index.js
+
+//to incorporate external modules.
+//npm init
+//just press enter or input your descriptions.
+//you can find packages on npmjs.com 
+//for example weare going to install superheroes, just an example of a json library
+npm i superheroes
+npm i pokemon
+//code
+node index.js
+
+//you can write scripts inside the package.json
+"start": "node index.js"
+//now run
+npm start

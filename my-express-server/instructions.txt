@@ -1,0 +1,12 @@
+//initialize the npm
+//cd into folder
+//create server.js
+npm init
+npm i express
+//now you can import or require express inside the file server.js
+
+//write code
+
+npm i -D nodemon 
+//node monitor
+//now we can type nodemon server.js instead of node server.js on our start script

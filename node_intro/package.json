@@ -1,0 +1,16 @@
+{
+  "name": "node_intro",
+  "version": "1.0.0",
+  "description": "This is an intro to npm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Alan_Contreras <alanrcontrerasm@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "pokemon": "^2.3.0",
+    "superheroes": "^3.0.0"
+  }
+}
