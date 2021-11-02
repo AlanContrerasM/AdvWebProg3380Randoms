@@ -14,6 +14,7 @@ const Events = () => {
 
     const query = new URLSearchParams(useLocation().search);
     console.log(query.get('name'));
+    //to get extra params, lke ..../id?name=knfgkdnkf&&last=43543534
 
     return ( <div>
         <h1>Events Details</h1>
