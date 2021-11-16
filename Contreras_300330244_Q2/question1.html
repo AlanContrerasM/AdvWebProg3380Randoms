@@ -1,0 +1,111 @@
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>QUIZ 2</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+
+	<!---- STUDENT INFORMATION
+	CSIS 3380 Quiz 2
+	Student Name: Alan Contreras
+	Student ID: 300330244
+	 -->
+</head>
+
+<body class="container-fluid">
+
+	<h1> Quiz 2 </h1>
+	<h3> --- Alan Contreras - 300330244 - Your fave Student --- </h3>
+
+
+	<!-- ============= START OF QUESTION 1 ============ --->
+
+	<div class="container">
+		<h1> Question 1 </h1>
+		<h1>Currency Convertor</h1><br><br>
+		<input type="number" name="amount" id="amount" placeholder="Enter the Amount">
+		<select id="from_curr" name="from_curr"></select>
+		<select id="to_curr" name="to_curr"></select>
+		<button type="button"> Convert Currency </button>
+		<input type="text" name="answer" id="answer" placeholder="Result Here..">
+	</div>
+
+	<script>
+		const fromBox = document.getElementById("from_curr");
+		const toBox = document.getElementById("to_curr");
+		const amountInput = document.getElementById("amount");
+		const answer = document.getElementById("answer");
+
+
+		//step 1 fetch
+		// api_key=e780bf65c0-11aee9d708-r2aisy
+		const id = "e780bf65c0-11aee9d708-r2aisy";
+		const url = `https://api.fastforex.io/fetch-all?api_key=${id}`;
+		fetch(url)
+		.then(response=>{
+			if(!response.ok){
+				throw Error(response.statusText);
+			}
+			return response.json();
+
+		})
+		.then(hits=>{
+			// console.log(hits);
+			populateSelectBoxes(hits);
+		})
+		.catch((error)=>{
+			console.log("Error guys: ", error);
+		})
+
+		const populateSelectBoxes = (hits) =>{
+			
+
+			//iterate through all of them
+			Object.keys(hits.results).forEach(key => {
+  				console.log(key, hits.results[key]);
+				opt = document.createElement("option");
+				opt.textContent = key;
+				opt2 = document.createElement("option");
+				opt2.textContent = key;
+
+				toBox.appendChild(opt);
+				fromBox.appendChild(opt2);
+			});
+
+		}
+		
+
+		//clicked button
+		document.querySelector('button').addEventListener('click', (e)=>{
+			const id = "e780bf65c0-11aee9d708-r2aisy";
+			const amount = amountInput.value;
+			fromCurr = fromBox.value;
+			toCurr = toBox.value;
+
+			const url = `https://api.fastforex.io/convert?api_key=${id}&amount=${Number(amount)}&from=${fromCurr}&to=${toCurr}`;
+			console.log(url);
+			fetch(url)
+			.then(response=>{
+				if(!response.ok){
+					throw Error(response.statusText);
+				}
+				return response.json();
+
+			})
+			.then(hits=>{
+				console.log(hits);
+				answer.value = hits.result[toCurr];
+				
+			})
+			.catch((error)=>{
+				console.log("Error guys: ", error);
+			})
+
+
+		});
+
+	</script>
+</body>
+
+</html>
