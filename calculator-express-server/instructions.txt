@@ -23,3 +23,12 @@ npm start
 
 //REST, is basically a convention, for http requests and API, CRUD, GET, PUT POST, DELETE
 //PUT, is for whole object, PATCH, is for some part
+
+
+//for server for mongoose API
+npm init 
+npm i express mongoose cors
+npm i -D nodemon
+
+//create a front end
+npx create-react-app client --use npm

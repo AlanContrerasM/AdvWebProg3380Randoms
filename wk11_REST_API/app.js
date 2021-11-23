@@ -58,9 +58,36 @@ app.post("/api/newuser", (req,res)=>{
 })
 
 app.put("/api/:id", (req, res)=>{
-    
+    const { id } = req.params;
+
+    //look up the user. if does not exist, return 404 meaning resource not found
+    const user = users.find((user) => user.id == id);
+    if (!user)
+        return res
+        .status(404)
+        .send("The user with the given parameter could not be found");
+
+    //Otherwise Validate the user. If Invalid, return 400 meaning that Bad Request
+    //Other wise update the user and return the updated user to the client.
+    user.name = req.body.name;
+    res.send(user);
 
 })
+
+//Handling DELETE request
+app.delete("/api/users/:id", (req, res) => {
+  const { id } = req.params;
+  const user = users.find((user) => user.id == id);
+  if (!user)
+    return res
+      .status(404)
+      .send("The user with the given parameter could not be found");
+
+  const position = users.indexOf(user);
+  users.splice(position, 1);
+  res.send(users);
+});
+
 
 //env variables
 const port = process.env.PORT || 3000;
