@@ -27,8 +27,9 @@ npm start
 
 //for server for mongoose API
 npm init 
-npm i express mongoose cors
+npm i express mongoose cors concurrently
 npm i -D nodemon
 
 //create a front end
 npx create-react-app client --use npm
+npm i react-router-dom axios

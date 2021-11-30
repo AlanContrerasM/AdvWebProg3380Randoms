@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "frontend": "npm start --prefix client",
+    "backend": "nodemon server.js",
+    "dev": "concurrently \"npm rum backend\" \"npm run frontend\""
   },
   "author": "Alan_Contreras <alanrcontrerasm@gmail.com>",
   "license": "ISC",

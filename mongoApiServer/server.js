@@ -11,6 +11,9 @@ app.use(cors());
 const url = "mongodb://localhost:27017/studentsDB";
 
 
+
+
+
 app.get("/api/StudentInfo/", async (req,res)=>{
     
 
@@ -21,20 +24,16 @@ app.get("/api/StudentInfo/", async (req,res)=>{
         const students = await Student.find();
         console.log(students);
         res.send(students);
+
+        await mongoose.connection.close();
         
         
 
     }catch(err){
         console.log(err);
+        res.status(400).send(err);
 
-    }finally{
-        try{
-            await mongoose.connection.close();
-        }catch(err){
-            console.log(err);
-        }
-        
-    }    
+    }
 });
 
 //create
@@ -50,23 +49,22 @@ app.post("/api/StudentInfo/", async (req, res)=>{
         // await student.save();
         const student = await Student.create({first_name, last_name, age});
         res.send(student);
+        await mongoose.connection.close();
         
         
 
     }catch(err){
         console.log(err);
-        res.send(err);
+        res.status(400).send({err, message: "wrong data sent to create new student"});
 
-    }finally{
-        try{
-            await mongoose.connection.close();
-        }catch(err){
-            console.log(err);
-        }
-        
-    } 
+    }
 
 })
+// {
+//     "first_name": "Alan",
+//     "last_name": "soemthing",
+//     "age": 24
+// }
 
 //get one
 app.get("/api/StudentInfo/:id", async (req, res)=>{
@@ -80,20 +78,15 @@ app.get("/api/StudentInfo/:id", async (req, res)=>{
 
         const student = await Student.findOne({_id: _id});
         res.send(student);
+        await mongoose.connection.close();
+        
         
 
     }catch(err){
         console.log(err);
-        res.send(err);
+        res.status(400).send(err);
 
-    }finally{
-        try{
-            await mongoose.connection.close();
-        }catch(err){
-            console.log(err);
-        }
-        
-    } 
+    }
 
 })
 
@@ -104,29 +97,23 @@ app.put("/api/StudentInfo/:id", async (req, res)=>{
 
         const {id} = req.params;
         _id = mongoose.Types.ObjectId(id);
-        const {first_name, last_name} = req.body;
+        const {first_name, last_name, age} = req.body;
 
         await mongoose.connect(url, { useNewUrlParser: true });
         console.log("database connected");
 
-        const student = await Student.updateOne({_id: _id}, {first_name, last_name});
+        const student = await Student.updateOne({_id: _id}, {first_name, last_name, age});
 
         res.send(student);
+        await mongoose.connection.close();
         
         
 
     }catch(err){
         console.log(err);
-        res.send(err);
+        res.status(400).send(err);
 
-    }finally{
-        try{
-            await mongoose.connection.close();
-        }catch(err){
-            console.log(err);
-        }
-        
-    } 
+    }
 
 })
 
@@ -145,21 +132,34 @@ app.delete("/api/StudentInfo/:id", async (req, res)=>{
         const student = await Student.deleteOne({_id: _id});
 
         res.send(student);
+        await mongoose.connection.close();
         
-        
-
     }catch(err){
         console.log(err);
-        res.send(err);
+        res.status(400).send(err);
 
-    }finally{
-        try{
-            await mongoose.connection.close();
-        }catch(err){
-            console.log(err);
-        }
+    }
+
+})
+
+//delete all students
+app.delete("/api/StudentInfo/", async (req, res)=>{
+    try{
         
-    } 
+        await mongoose.connect(url, { useNewUrlParser: true });
+        console.log("database connected");
+
+        const student = await Student.deleteMany({});
+
+        res.send(student);
+        await mongoose.connection.close();
+        
+        
+    }catch(err){
+        console.log(err);
+        res.status(400).send(err);
+
+    }
 
 })
 
