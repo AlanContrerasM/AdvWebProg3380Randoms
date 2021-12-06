@@ -8,7 +8,7 @@
     "start": "nodemon server.js",
     "frontend": "npm start --prefix client",
     "backend": "nodemon server.js",
-    "dev": "concurrently \"npm rum backend\" \"npm run frontend\""
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "author": "Alan_Contreras <alanrcontrerasm@gmail.com>",
   "license": "ISC",
