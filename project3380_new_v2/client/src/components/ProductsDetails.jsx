@@ -1,16 +1,31 @@
 import React, { useState } from 'react';
-import { getProducts } from '../databaseProducts';
-import { getUsers } from '../databaseUser';
+import { useHistory, useParams} from 'react-router-dom';
+import axios from 'axios';
 
-const Productdetails = ({ match, history }) => {
-	const [products, setProducts] = useState(getProducts());
-	// const [users, setUsers] = useState(getUsers());
+const Productdetails = ({products, user}) => {
+	const params = useParams();
+	const history = useHistory();
 
-	console.log(match);
-	const handleCart = () => {
-		// history.push("/events");
-		history.replace('/cart');
-	};
+
+	async function addToCart(){
+		try{
+			if(!user.loggedIn){
+				history.push('/signin');
+			}
+			const resp = await axios.post("http://localhost:5000/api/v1/users/cart", {_id: params.id},{
+				headers: {
+				  'Content-Type': 'application/json'
+				},
+				 withCredentials: true });
+			console.log(resp.data);
+			history.push('/cart');
+			
+		}catch(err){
+		  console.log(err);
+		}
+	}
+
+
 	return (
 		<div>
 			{/* {users
@@ -19,9 +34,9 @@ const Productdetails = ({ match, history }) => {
 					<h1>Welcome {filterUser.name}</h1>;
 				})} */}
 			{products
-				.filter((product) => product._id == match.params.id)
+				.filter((product) => product._id == params.id)
 				.map((filterProductDetail) => (
-					<div class="container">
+					<div keu={filterProductDetail._id} class="container">
 						<div class="row">
 							{/* show picture of product  */}
 							<div class="col-sm">
@@ -41,7 +56,7 @@ const Productdetails = ({ match, history }) => {
 									Price: ${filterProductDetail.price}
 								</h5>
 								<br />
-								<button class="btn btn-info" onClick={handleCart}>
+								<button class="btn btn-info" onClick={addToCart}>
 									Buy it
 								</button>
 							</div>

@@ -14,12 +14,16 @@ module.exports = (passport) => {
     opts.jwtFromRequest = cookieExtractor; 
     opts.secretOrKey = SECRET;
     passport.use(new Strategy(opts, async(payload, done) =>{
+        // console.log("using passp", payload.user_id);
         await User.findById(payload.user_id).then(async user =>{
             if(user){
+                // console.log("using passp: user found");
                 return done(null, user);
             }
+            console.log("using passp: user empty");
             return done(null, false)
         }).catch((err)=>{
+            console.log("using passp: error with user search");
             return done(null, false);
         })
     }))

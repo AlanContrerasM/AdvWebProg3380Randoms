@@ -1,23 +1,90 @@
-import React, { useState } from 'react';
-import { getCartProducts } from '../databaseCart';
+import React, { useState, useEffect } from 'react';
+import {useHistory} from 'react-router-dom';
+import axios from 'axios';
 
-const Cart = ({ history }) => {
-	const [cartProducts, setcartProducts] = useState(getCartProducts());
+
+const Cart = ({user, products}) => {
+	const history = useHistory();
+	const [cartProducts, setCartProducts] = useState(null);
+
+	async function getCart(){
+		try{
+			if(!user.loggedIn){
+				history.push('/signin');
+			}
+			const resp = await axios.get("http://localhost:5000/api/v1/users/cart",{
+				headers: {
+				  'Content-Type': 'application/json'
+				},
+				 withCredentials: true });
+			setCartProducts(resp.data.cart);
+
+			
+		}catch(err){
+		  console.log(err);
+		}
+	}
+
+	async function updateCartQuantity(product, quantity){
+		try{
+			await axios.put("http://localhost:5000/api/v1/users/cart",{_id: product._id, quantity }, {
+				headers: {
+				  'Content-Type': 'application/json'
+				},
+				 withCredentials: true });
+
+			//get updated cart
+			getCart();
+		}catch(err){
+		  console.log(err);
+		}
+	}
+
+	async function deleteCartItem(_id){
+		try{
+			await axios.delete("http://localhost:5000/api/v1/users/cart" + _id,{
+				headers: {
+				  'Content-Type': 'application/json'
+				},
+				 withCredentials: true });
+
+			//get updated cart
+			getCart();
+		}catch(err){
+		  console.log(err);
+		}
+	}
+
+
 
 	const handleBack = () => {
-		history.replace('/products');
+		history.push('/products');
 	};
+
+	useEffect(()=>{getCart()}, []);
+
+	
+	if(!cartProducts){
+		return "loading";
+	}else{
+	const populatedCart = cartProducts.map((product) => {
+							
+		products.forEach(prod=>{
+			if(product._id == prod._id){
+				product = {...product, title: prod.title, description: prod.description, price:prod.price };
+			}
+		});
+		return product;
+	});
+		
+	const total = populatedCart.reduce((acumulator, current)=>{
+		return acumulator + (current.price *current.quantity);
+	},0)
+
 	return (
 		<div>
-			{/* if the userId in databaseCart = the id of user who is login
-            and the date in databsaeCart is today */}
 			<table className="table">
-				{cartProducts
-					.filter(
-						(cartProduct) =>
-							cartProduct.userid == '1001' && cartProduct.date == 'Nov-30-20'
-					)
-					.map((filterCart, index) => (
+				{populatedCart.map((filterCart, index) => (
 						<div key={index} class="container">
 							<div key={index} class="row">
 								<div class="col">
@@ -29,7 +96,7 @@ const Cart = ({ history }) => {
 									{/* minus quantity btn  */}
 									<button
 										className="btn btn-warning btn-sm"
-										// onClick={() => onUpdate(filterCart)}
+										onClick={() => updateCartQuantity(filterCart, filterCart.quantity -1)}
 									>
 										-
 									</button>
@@ -45,7 +112,7 @@ const Cart = ({ history }) => {
 									{/* add quantity button  */}
 									<button
 										className="btn btn-warning btn-sm"
-										// onClick={() => onUpdate(filterCart)}
+										onClick={() => updateCartQuantity(filterCart, filterCart.quantity +1)}
 									>
 										+
 									</button>
@@ -55,14 +122,14 @@ const Cart = ({ history }) => {
 								<div class="col">
 									<button
 										className="btn btn-danger btn-sm"
-										// onClick={() => onDelete(filterCart)}
+										onClick={() => deleteCartItem(filterCart._id) } 
 									>
 										Remove
 									</button>
 								</div>
 
 								{/* show quantity multiple unit price  */}
-								<div class="col">Total: ${filterCart.payment}</div>
+								<div class="col">Total: ${filterCart.price * filterCart.quantity}</div>
 							</div>
 						</div>
 					))}
@@ -70,15 +137,19 @@ const Cart = ({ history }) => {
 
 			<h3>
 				Your Total: it should show the total money that user need to pay. In
-				this case, it is $1198.75
+				this case, it is ${total}
 			</h3>
 
 			{/* when user click this btn, it will go to all products page  */}
 			<button class="btn btn-info" onClick={handleBack}>
 				Continue shopping
 			</button>
+			
 		</div>
 	);
-};
 
+	}
+	
+
+}
 export default Cart;

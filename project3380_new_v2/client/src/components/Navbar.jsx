@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../images/logo.jpg';
 
-const NavBar = () => {
+const NavBar = ({user}) => {
 	// set the style
 	const style = {
 		textAlign: 'right',
@@ -41,9 +41,17 @@ const NavBar = () => {
 
 					{/* signIn tab  */}
 					<li className="nav-item">
+
+						{!user.loggedIn ? 
 						<Link className="nav-link" to="/signin">
 							<b>Sign In</b>
 						</Link>
+						:
+						<Link className="nav-link" to="/signin">
+							<b>Log Out: {user.userEmail}</b>
+						</Link>
+						}
+						
 					</li>
 
 					{/* cart tab  */}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../images/header.jpg';
-import { getProducts } from '../databaseProducts';
 
-const Home = () => {
-	const [products, setProducts] = useState(getProducts());
+
+const Home = ({products}) => {
+	
 
 	return (
 		<div>
@@ -19,7 +19,7 @@ const Home = () => {
 				{products
 					.filter((product) => product.topSeller == true)
 					.map((filterTopSeller) => (
-						<div class="card" style={{ width: '33%' }}>
+						<div key={filterTopSeller._id} class="card" style={{ width: '33%' }}>
 							<div class="card-body">
 								<img src={filterTopSeller.url} class="card-img-top" alt="..." />
 								<h5 class="card-title">
@@ -44,7 +44,7 @@ const Home = () => {
 				{products
 					.filter((product) => product.newProduct == true)
 					.map((filterNewProduct) => (
-						<div class="card" style={{ width: '33%' }}>
+						<div key={filterNewProduct._id} class="card" style={{ width: '33%' }}>
 							<div class="card-body">
 								<img
 									src={filterNewProduct.url}

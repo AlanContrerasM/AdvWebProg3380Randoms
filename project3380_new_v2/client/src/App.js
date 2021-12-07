@@ -10,24 +10,70 @@ import Footer from './components/Footer';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Cart from './components/Cart';
+import axios from 'axios';
+import {useState, useEffect} from 'react';
 
 function App() {
+	// state for logged in
+	const [user, setUser] = useState({loggedIn:false, userEmail: ""});
+	const [products, setProducts] = useState(null);
+
+	async function fetchData(){
+		try{
+			//get products
+			const resp = await axios.get("http://localhost:5000/api/v1/products/")
+			console.log(resp.data.products);
+			setProducts(resp.data.products);
+
+			//check if user is signed in 
+			const signed = await axios.get("http://localhost:5000/api/v1/users/signedin", {
+				headers: {
+				  'Content-Type': 'application/json'
+				},
+				 withCredentials: true });
+			console.log("user already signed in!, nice");
+			setUser({loggedIn:true, userEmail: signed.data.email});
+			
+
+		}catch(err){
+		  console.log(err);
+		}
+	  }
+	
+	
+	  useEffect(() => {
+		fetchData();
+	  }, [])
+
 	return (
 		<div className="App">
-			<NavBar />
+			<NavBar user={user}/>
 			<div className="conent">
-				<Switch>
-					<Route path="/about" component={About} />
-					<Route path="/cart" component={Cart} />
-					<Route path="/productsDetails/:id?" component={ProductsDetails}/>
-					<Route path="/products" render={(props)=><Products name="ProductName" {...props}/>}/>
-					<Route path="/signin" component={SignIn}/>
-					<Route path="/signup" component={SignUp}/>
-					<Route path="/not-found" component={Notfound}/>
-					<Route path="/" exact component={Home} />
-					<Redirect from="/contactus" to="/About"/>
-					<Redirect to="not-found"/>
-				</Switch>
+				{!products ? "loading" : 
+					<Switch>
+						<Route path="/about" component={About} />
+						{/* protected route */}
+						<Route path="/cart" >
+							{user.loggedIn ? <Cart user={user} products={products} /> : <Redirect to="/signin"/> }
+						</Route>
+						<Route path="/productsDetails/:id?" >
+							<ProductsDetails products={products} user={user}/>
+						</Route>
+						<Route path="/products" >
+							<Products name="ProductName" products={products}/>
+						</Route>
+						<Route path="/signin" >
+							<SignIn setUser={setUser}/>
+						</Route>
+						<Route path="/signup" component={SignUp}/>
+						<Route path="/not-found" component={Notfound}/>
+						<Route path="/" exact >
+							<Home products={products}/>
+						</Route>
+						<Redirect from="/contactus" to="/About"/>
+						<Redirect to="not-found"/>
+					</Switch>
+				}
 			</div>
 			<Footer/>
 		</div>

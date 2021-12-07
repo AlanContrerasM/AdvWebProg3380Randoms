@@ -56,21 +56,23 @@ const userLogin = async (user, res) =>{
         //create access token
         let token = jwt.sign(
             {
-                user_id: user._id,
-                email: user.email
+                user_id: userDB._id,
+                email: userDB.email
             }, 
             SECRET, 
             {expiresIn: "2d"} 
         );
 
         let result = {
-            email: user.email,
+            id: userDB._id,
+            email: userDB.email,
+            // token: token,
             expiresIn: 48
         }
 
         res.cookie("jwt", token, {
             httpOnly: true,
-            sameSite: "strict",
+            sameSite: "Strict",
         });
 
         return res.status(200).json({
@@ -99,11 +101,12 @@ const repeatedEmail = async email =>{
 //auth
 const userAuthorization = (req,res,next) => passport.authenticate('jwt', {session:false}, function(err, user, info) {
     if (err || !user ) { 
+      console.log(req.cookies['jwt']);
         res.clearCookie('jwt');
-        res.status(401).send({
-            message: "authentication failed, please sign in again for new token",
-            success: false
-        });
+        // res.status(401).send({
+        //     message: "authentication failed, please sign in again for new token",
+        //     success: false
+        // });
     }else{
         //success
         req.user = user;
@@ -116,6 +119,7 @@ const protectedUser = user => {
     return {
         email: user.email,
         _id: user._id,
+        cart: user.cart,
         updatedAt: user.updatedAt,
         createdAt: user.createdAt
     }

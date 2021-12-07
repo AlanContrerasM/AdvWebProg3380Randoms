@@ -4,13 +4,13 @@ import queryString from 'query-string';
 import { getProducts } from '../databaseProducts';
 import Productdetails from './ProductsDetails';
 
-const Products = ({ location }) => {
-	const [products, setProducts] = useState(getProducts());
+const Products = ({ products }) => {
+
 
 	return (
 		<div class="row">
 			{products.map((product) => (
-				<div class="card" style={{ width: '33%' }}>
+				<div key={product._id} class="card" style={{ width: '33%' }}>
 					<div class="card-body">
 						{/* show picture of product  */}
 						<img src={product.url} class="card-img-top" alt="..." />

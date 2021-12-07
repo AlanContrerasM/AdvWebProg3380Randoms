@@ -1,7 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import { Link, useHistory} from 'react-router-dom';
+import axios from 'axios';
 
-const SignIn = () => {
+const SignIn = ({setUser}) => {
 	// set the sytle
 	const style = {
 		width: '100%',
@@ -9,6 +10,49 @@ const SignIn = () => {
 		padding: '15px',
 		margin: 'auto',
 	};
+	const [form, setForm] = useState({
+		email: "",
+		password: ""
+	})
+	const history = useHistory();
+
+
+
+	async function logout(){
+		try{
+			const resp = await axios.get("http://localhost:5000/api/v1/users/logout",{
+				headers: {
+				  'Content-Type': 'application/json'
+				},
+				 withCredentials: true })
+			console.log(resp);
+			setUser({loggedIn:false, userEmail: ""});
+		}catch(err){
+		  console.log(err);
+		}
+	}
+
+	async function login(){
+		try{
+			const resp = await axios.post("http://localhost:5000/api/v1/users/login", form,{
+				headers: {
+				  'Content-Type': 'application/json'
+				},
+				 withCredentials: true });
+
+			console.log(resp);
+			setUser({loggedIn:true, userEmail: form.email});
+			history.push('/');
+		}catch(err){
+		  console.log(err);
+		}
+	}
+
+	useEffect(()=>{
+		logout();
+	},[])
+
+
 	return (
 		<div style={style}>
 			<h1>Sign In</h1>
@@ -19,6 +63,8 @@ const SignIn = () => {
 					type="email"
 					class="form-control"
 					id="floatingInput"
+					value={form.email}
+					onChange={(e)=>setForm({...form, email: e.target.value})}
 					placeholder="name@example.com"
 				/>
 				<label for="floatingInput">Email address</label>
@@ -31,13 +77,15 @@ const SignIn = () => {
 					class="form-control"
 					id="floatingPassword"
 					placeholder="Password"
+					value={form.password}
+					onChange={(e)=>setForm({...form, password: e.target.value})}
 				/>
 				<label for="floatingPassword">Password</label>
 			</div>
 
 			{/* signIn button  */}
 			<div class="form-floating">
-			<button class="w-100 btn btn-lg btn-primary" type="submit">
+			<button class="w-100 btn btn-lg btn-primary" onClick={login}>
 				Sign in
 			</button>
 			</div>

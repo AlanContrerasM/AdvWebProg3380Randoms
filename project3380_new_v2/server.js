@@ -4,12 +4,22 @@ const cookieParser = require("cookie-parser");
 const {connect} = require('mongoose');
 //bring in app constant
 const {DB, PORT} = require('./config');
+//dumy products getter
+const {createDummyProducts} = require("./controllers/productController.js");
+const {getWeather} = require("./utils/weather");
+
+
 
 //create app
 const app = express();
 
 //extra mw
-app.use(cors());
+
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['POST', 'PUT', 'GET', 'DELETE','OPTIONS', 'HEAD'],
+    credentials: true
+  }));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -26,7 +36,7 @@ app.use('/api/v1/users', require('./routes/users'));
 
 app.use('/api/v1/products', require('./routes/products'));
 
-initializeApp();
+
 
 const initializeApp = async () => {
 
@@ -34,6 +44,10 @@ const initializeApp = async () => {
         await connect(DB);
         console.log(`DB is connected and ready \n ${DB}`);
         //check if products are existing and add them if not, create user yana@yana.com password yana
+
+        //checks if there are products in database and creates them if not.
+        createDummyProducts();
+
         const port = PORT ?? 5000;
         app.listen(port, ()=>{
             console.log(`listening on port: ${port}`)
@@ -44,5 +58,9 @@ const initializeApp = async () => {
     }
     
 };
+
+initializeApp();
+
+app.get("/api/v1/weather", getWeather);
 
 

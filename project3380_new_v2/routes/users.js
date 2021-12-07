@@ -10,30 +10,30 @@ router.post('/register', async(req, res) => {
 })
 //body containing email, password
 
-
-
 //users login route, user user
 router.post('/login', async(req, res) => {
-    await userLogin(req.body, 'user', res);
+    await userLogin(req.body, res);
 })
 //body containing email and password.
+
+router.get('/signedin',userAuthorization,  async(req, res) => {
+    res.status(200).send(protectedUser(req.user));
+})
+//just to confirm if user is signed in.
 
 
 //needs user login to change their carts contents,
 //get all cart contents
-router.get('/cart', userAuthorization, async(req, res) => {
-    return res.json(protectedUser(req.user));
-});
+router.get('/cart', userAuthorization, users.getCart);
 
 //add product id to user cart, body with product id 
-router.post('/cart/', userAuthorization, async(req, res) => {
-    return res.json(protectedUser(req.user));
-});
+router.post('/cart', userAuthorization, users.appendToCart);
 
-//edit quantity for a product inside the cart
-router.put('/cart/:id', userAuthorization, async(req, res) => {
-    return res.json(protectedUser(req.user));
-});
+//edit quantity for a product inside the cart, body with id and quantity
+router.put('/cart', userAuthorization, users.updateProductQuantity);
+
+//delete product from cart, body of id, could be param too
+router.delete('/cart:id', userAuthorization, users.deleteFromCart);
 
 
 

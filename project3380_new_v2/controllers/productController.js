@@ -28,7 +28,7 @@ exports.create = async (req, res) => {
     try{
         const {title, description, url, numberInStock, price, topSeller, newProduct} = req.body;
         
-        const newProduct = new Product({
+        const addProduct = new Product({
             title,
             description,
             url,
@@ -38,12 +38,12 @@ exports.create = async (req, res) => {
             newProduct
         });
 
-        await newProduct.save();
+        await addProduct.save();
         
         return res.status(201).json({
             message: "Event was created",
             success: true,
-            newEvent
+            addProduct
         });
 
     }catch(err){
@@ -65,7 +65,7 @@ exports.findAll = async (req, res) => {
         return res.status(200).json({
             message: "Products are sent",
             success: true,
-            events
+            products
         });
 
     }catch(err){
@@ -128,10 +128,18 @@ exports.deleteAll = async (req, res) => {
 exports.createDummyProducts = async () =>{
 
     try{
-        products.forEach(product=>{
+
+        const count = await Product.count();
+        //if populated dont do anything
+        if(count){
+            console.log("database populated")
+            return ;
+        }
+        console.log("populating database");
+        products.forEach(async (product)=>{
             const {title, description, url, numberInStock, price, topSeller, newProduct} = product;
         
-            const newProduct = new Product({
+            const addProduct = new Product({
                 title,
                 description,
                 url,
@@ -141,8 +149,9 @@ exports.createDummyProducts = async () =>{
                 newProduct
             });
 
-            await newProduct.save();
+            await addProduct.save();
         })
+        console.log("done populating database with products")
 
     }catch(err){
         console.log("dummy database creation unsuccesful" , err);
