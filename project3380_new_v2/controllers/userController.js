@@ -79,7 +79,7 @@ exports.updateProductQuantity = async (req, res) => {
 
 
 
-// Delete all Products
+// Delete one Products from cart
 exports.deleteFromCart = async (req, res) => {
 
     try{

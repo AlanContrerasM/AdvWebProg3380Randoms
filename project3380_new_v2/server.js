@@ -20,6 +20,8 @@ app.use(cors({
     methods: ['POST', 'PUT', 'GET', 'DELETE','OPTIONS', 'HEAD'],
     credentials: true
   }));
+
+  
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
