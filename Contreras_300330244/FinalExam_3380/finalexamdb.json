@@ -1,0 +1,55 @@
+[{
+  "_id": {
+    "$oid": "61af26589d321a3eac61b29c"
+  },
+  "carid": "101",
+  "modelname": "Outback",
+  "brand": "Subaru",
+  "price": "30995",
+  "safetyscore": "21"
+},{
+  "_id": {
+    "$oid": "61bb057b48c49c01939e60b9"
+  },
+  "carid": "102",
+  "modelname": "Camry",
+  "brand": "Toyota",
+  "price": "23456",
+  "safetyscore": "18"
+},{
+  "_id": {
+    "$oid": "61bb05cc48c49c01939e60ba"
+  },
+  "carid": "103",
+  "modelname": "Maxima",
+  "brand": "Nissan",
+  "price": "27250",
+  "safetyscore": "23"
+},{
+  "_id": {
+    "$oid": "61bb060648c49c01939e60bb"
+  },
+  "carid": "104",
+  "modelname": "Sonata",
+  "brand": "Hyundai",
+  "price": "32198",
+  "safetyscore": "25"
+},{
+  "_id": {
+    "$oid": "61bb062b48c49c01939e60bc"
+  },
+  "carid": "105",
+  "modelname": "Optima",
+  "brand": "Kia",
+  "price": "28495",
+  "safetyscore": "22"
+},{
+  "_id": {
+    "$oid": "61bb067048c49c01939e60bd"
+  },
+  "carid": "106",
+  "modelname": "Model 3",
+  "brand": "Tesla",
+  "price": "51600",
+  "safetyscore": "18"
+}]

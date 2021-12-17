@@ -1,0 +1,62 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 30px;
+  background-color: rgb(233, 247, 208);
+}
+
+.App {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.App > h1 {
+  margin-bottom: 5px;
+}
+
+.App > h2 {
+  margin-top: 5px;
+  opacity: 0.7;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.drinks {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.drink {
+  background: #fff;
+  position: relative;
+  border-radius: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  padding: 20px;
+  margin: 10px;
+  width: 47%;
+  color: #000;
+  flex-basis: width;
+  background-color: rgb(241, 114, 114);
+}
+
+.drink h3 {
+  margin-bottom: 5px;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+.drink h2 {
+  margin-top: 5px;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+}
+
+.details {
+  text-align: left;
+}
+th,
+td {
+  text-align: center;
+}
